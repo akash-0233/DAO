@@ -25,6 +25,14 @@ contract DAO {
     mapping(address => mapping(uint256 => bool)) public isVoted;// Mapping of addresses and proposals voted on.
     mapping(uint256 => Proposal) public proposals;              // Mapping of proposal IDs to proposal details.
 
+    event ProposalCreated( uint256 indexed id, string purpose, uint256 amount, address recipient, uint256 end );        // Emits information about a newly created proposal.
+    event VoteCasted(uint256 indexed proposalId, address indexed voter, uint256 votes);                                 // Emits when an investor casts their vote on a proposal.
+    event ProposalExecuted(uint256 indexed proposalId, uint256 amount, address recipient);                              // Emits the execution of a proposal, including details of the transaction.
+    event SharesTransferred(address indexed from, address indexed to, uint256 shares);                                  // Emits the transfer of shares between investors.
+    event RedeemShares(address indexed investor, uint256 amount);                                        // Emits when an investor redeems shares and withdraws funds.
+    event DonationReceived(address indexed donor, uint256 amount);                                                      // Emits when a donation is made to the contract.
+
+
     constructor(uint256 _quorum) {
         quorum = _quorum;
         manager = msg.sender; // The contract creator is the initial manager.
@@ -56,6 +64,7 @@ contract DAO {
             block.timestamp + _Endin,
             false
         );
+        emit ProposalCreated( id,  _purpose,  _amount,  _recipient,  _Endin + block.timestamp ); 
         id++;
     }
 
@@ -79,6 +88,7 @@ contract DAO {
         RemainingFund -= proposals[_id].amount;
         require(proposals[_id].amount <= RemainingFund, "Insufficient Balance");
         payable(proposals[_id].recipient).transfer(proposals[_id].amount);
+        emit ProposalExecuted(_id, proposals[_id].amount, proposals[_id].recipient);
         return true;
     }
 
@@ -90,6 +100,7 @@ contract DAO {
         SharesOf[msg.sender] += msg.value;
         InvestorList.push(msg.sender);
         RemainingFund += msg.value;
+        emit DonationReceived(msg.sender, msg.value);
     }
 
     // Function for investors to vote on a proposal.
@@ -98,6 +109,7 @@ contract DAO {
         require(isVoted[msg.sender][_id] == false, "Already Voted");
         isVoted[msg.sender][_id] = true;
         proposals[_id].votes = SharesOf[msg.sender];
+        emit VoteCasted( _id,  msg.sender,  SharesOf[msg.sender]); 
         return true;
     }
 
@@ -120,6 +132,8 @@ contract DAO {
                 }
             }
         }
+        emit SharesTransferred(msg.sender, TransferTo, ShareCount);
+        
     }
 
     // Function to redeem shares and withdraw funds.
@@ -139,5 +153,7 @@ contract DAO {
         }
         RemainingFund -= _ShareCount;
         payable(msg.sender).transfer(_ShareCount);
+        emit RedeemShares(msg.sender, _ShareCount);
+        
     }
 }
