@@ -33,8 +33,8 @@ contract DAO {
     event DonationReceived(address indexed donor, uint256 amount);                                                      // Emits when a donation is made to the contract.
 
 
-    constructor(uint256 _quorum) {
-        quorum = _quorum;
+    constructor() {
+        quorum = 51;
         manager = msg.sender; // The contract creator is the initial manager.
     }
 
