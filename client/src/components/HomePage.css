@@ -1,0 +1,64 @@
+/* src/components/HomePage.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .heading {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #007bff; /* Blue color */
+  }
+  
+  .paragraph {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #333; /* Dark gray color */
+  }
+  
+  .additional-info {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #333; /* Dark gray color */
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .step {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #007bff; /* Blue border */
+    border-radius: 10px;
+    text-align: left;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow added */
+    transition: all 0.3s;
+  }
+  
+  .step:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 12px rgba(0, 0, 0, 0.2); /* Enhanced box shadow on hover */
+  }
+  
+  .stepIcon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #007bff; /* Blue color */
+  }
+  
+  .stepText {
+    font-size: 1.1rem;
+    color: #333; /* Dark gray color */
+  }
+  
+  /* Add your own custom styles and colors as needed */
+  
