@@ -3,8 +3,31 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import CreateProposal from './components/manager/CreateProposal';
 import Vote from './components/investor/Vote';
 import HomePage from './components/HomePage';
+import { useEffect,useState } from 'react';
+// import { useWeb3React } from '@web3-react/core';
+import Web3 from "web3";
+
 
 function App() {
+  // const { activate } = useWeb3React();
+  const[isConnected, setIsConnected]=useState("Connect");
+
+  const connectMetamask = async () => {
+    // const Web3 = require('web3');
+
+    if (typeof window.ethereum !== 'undefined') {
+      const web3 = new Web3(window.ethereum);
+    
+      window.ethereum.enable().then(function (accounts) {
+        // You can now use web3 to interact with Ethereum
+        console.log('Connected with MetaMask', accounts[0]);
+        setIsConnected("Connected");
+      });
+    } else {
+      console.log('MetaMask is not installed');
+    }
+    
+  };
   return (
     <Router>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -22,6 +45,7 @@ function App() {
                 <Link className="nav-link" to="/investor">Investor</Link>
               </li>
             </ul>
+            <button className="btn btn-primary" onClick={connectMetamask}> {isConnected}</button>
           </div>
         </div>
       </nav>
