@@ -21,13 +21,28 @@ function App() {
       window.ethereum.enable().then(function (accounts) {
         // You can now use web3 to interact with Ethereum
         console.log('Connected with MetaMask', accounts[0]);
-        setIsConnected("Connected");
+        setIsConnected("Connected🟢");
       });
     } else {
-      console.log('MetaMask is not installed');
+      alert('MetaMask is not installed');
     }
     
   };
+
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length === 0) {
+          setIsConnected("Disconnected🔴"); // Reset the button text on account change (disconnect)
+          setTimeout(() => {
+            setIsConnected("Connect");
+          }, 2000);
+        }
+      });
+    }
+  }, []);
+
+
   return (
     <Router>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
