@@ -1,18 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import CreateProposal from './components/manager/CreateProposal';
-// import Vote from './components/investor/Vote';
 import Manager from './components/manager/Manager.jsx';
 import HomePage from './components/HomePage';
 import Investor from './components/investor/Investor';
+import GetProposalList from './components/GetProposalList.jsx'
 import { useEffect, useState } from 'react';
 import './Hover.css'
-// import { useWeb3React } from '@web3-react/core';
 import Web3 from "web3";
 
 
 function App() {
-  // const { activate } = useWeb3React();
   const [isConnected, setIsConnected] = useState("Connect");
   const [address, setAddress] = useState("Not Connected");
   const [state, setState] = useState({
@@ -543,7 +540,6 @@ function App() {
         setAddress(accounts[0]);
         setIsConnected("Connected🟢");
       });
-      console.log('Connected with MetaMask', address);
 
     } else {
       alert('MetaMask is not installed');
@@ -552,7 +548,20 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("Disconect");
+    const checkConnection = async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        connectMetamask();
+      } else {
+        setAddress('');
+        setIsConnected('Not Connected🔴');
+      }
+    };
+
+    checkConnection();
+  }, []); 
+
+ 
+  useEffect(() => {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length === 0) {
@@ -583,6 +592,9 @@ function App() {
               <li className="nav-item">
                 <Link className="nav-link" to="/investor">Investor</Link>
               </li>
+              <li className="nav-item">
+            <Link className="nav-link" to="/proposal">Proposal</Link>
+          </li>
             </ul>
             <div className="button-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
@@ -595,11 +607,14 @@ function App() {
         </div>
       </nav>
       <Routes>
-        <Route path="/" element={<HomePage />} index /> {/* Display HomePage by default */}
+        <Route path="/" element={<HomePage />} index /> 
         <Route path="/manager" element={<><Manager state={state} address={address} /> </>} />
         <Route path="/investor" element={<Investor state={state} address={address} />} />
+        <Route path="/proposal" element={<GetProposalList state={state} address={address} />} />
+
       </Routes>
     </Router>
+    
 
   );
 }
