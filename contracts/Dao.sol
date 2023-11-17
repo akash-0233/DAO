@@ -17,7 +17,7 @@ contract DAO {
     address public manager; // Address of the contract manager (creator).
     uint256 id; // Unique identifier for proposals.
     uint256 public TotalShares; // Total shares held by all investors.
-    uint256 public RemainingFund; // Remaaining Ether in the contract's fund.
+    uint256 public RemainingFund; // Remaaining Et
     address[] public InvestorList; // List of addresses of all investors.
 
     mapping(address => uint) SharesOf; // Mapping of shares held by each investor.
@@ -91,7 +91,7 @@ contract DAO {
             _Endin + block.timestamp
         );
         id++;
-    }
+}
 
     // Function to retrieve a list of all proposals.
     function GetProposalList() public view returns (Proposal[] memory) {

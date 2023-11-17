@@ -1,0 +1,25 @@
+.custom-alert {
+    position: relative;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: inherit;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .close-btn:hover {
+    color: #000;
+  }
+  

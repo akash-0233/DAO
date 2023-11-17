@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-export default function Vote({state, address}) {
+export default function Vote({state, address,SetAlert}) {
     
   const handleVote =async () => {
     try {
@@ -10,10 +10,18 @@ export default function Vote({state, address}) {
         return "Invalid Id";
       }
       const result = await state.contract.methods.Vote(id).send({from:address, gas:200000});
-      alert(`You Have Successfully Voted On Proposal Id:- ${id}`);
+      SetAlert("success",`You Have Successfully Voted On Proposal Id:- ${id}`);
       console.log(result);
     } catch (error) {
-      console.log(error);
+      
+      // alert(error.message);
+      if (error.message.includes("reverted")) {
+        // Extract the reason or handle the error accordingly
+        SetAlert("danger",`Transaction reverted. Possible reason: Already voted for proposal ID :- ${document.querySelector("#VoteId").value} `);
+      } else {
+        // Display a general error message
+        SetAlert("danger","Transaction failed. Please try again later.");
+      }
       
     }
   };

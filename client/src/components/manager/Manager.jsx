@@ -4,12 +4,12 @@ import ExecuteProposal from './ExecuteProposal'
 import GetProposalList from '../GetProposalList'; // Adjust the path based on your file structure
 
 
-export default function Manager({state, address}) {
+export default function Manager({state, address, SetAlert}) {
   return (
     <>
-    <CreateProposal state={state} address={address}></CreateProposal>
+    <CreateProposal state={state} address={address} SetAlert={SetAlert}></CreateProposal>
     <ExecuteProposal state={state} address={address}></ExecuteProposal>
-    <GetProposalList state={state} address={address}></GetProposalList>
+    {/* <GetProposalList state={state} address={address}></GetProposalList> */}
 
     
     </>

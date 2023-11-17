@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
-export default function Donate({state, }) {
+export default function Donate({state,address, SetAlert}) {
     const[donateAmount, setDonateAmount]=useState("");
     const handleDonate = async () => {
         try{
@@ -9,7 +9,7 @@ export default function Donate({state, }) {
             const result = await state.contract.methods.Donate().send({from:address, gas:2000000, value:donateAmount});
             console.log(result);
             setDonateAmount("");
-            alert("Transaction Successed");
+            SetAlert("success","successfully Donated Ether");
         }catch(error){
             console.log(error);
         }

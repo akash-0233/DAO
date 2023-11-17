@@ -7,6 +7,7 @@ import GetProposalList from './components/GetProposalList.jsx'
 import { useEffect, useState } from 'react';
 import './Hover.css'
 import Web3 from "web3";
+import Alert from './alert.jsx';
 
 
 function App() {
@@ -575,6 +576,18 @@ function App() {
     }
   }, []);
 
+    const [alert,setAlert]=useState({
+      type:"",
+      msg:""
+    });
+    
+    function SetAlert(type,msg){
+      setAlert({type:type, msg:msg});
+      setTimeout(() => {
+        setAlert({type:"", msg:""});
+
+      }, 2000);
+    }
 
   return (
     <Router>
@@ -606,10 +619,11 @@ function App() {
           </div>
         </div>
       </nav>
+      <Alert alert={alert} ></Alert>
       <Routes>
         <Route path="/" element={<HomePage />} index /> 
-        <Route path="/manager" element={<><Manager state={state} address={address} /> </>} />
-        <Route path="/investor" element={<Investor state={state} address={address} />} />
+        <Route path="/manager" element={<><Manager state={state} address={address} SetAlert={SetAlert} /> </>} />
+        <Route path="/investor" element={<Investor state={state} address={address} SetAlert={SetAlert}/>} />
         <Route path="/proposal" element={<GetProposalList state={state} address={address} />} />
 
       </Routes>

@@ -5,13 +5,14 @@ import Vote from './Vote';
 import TransferShare from './TransferShare';
 import RedeemShare from './RedeemShare';
 
-const App = ({state, address}) => {
+
+const App = ({state, address, SetAlert}) => {
   return (
     <div className="app">
-      <Donate state={state} address={address} />
-      <Vote state={state} address={address} />
-      <TransferShare state={state} address={address}/>
-      <RedeemShare state={state} address={address}/>
+      <Donate state={state} address={address} SetAlert={SetAlert} />
+      <Vote state={state} address={address} SetAlert={SetAlert}/>
+      <TransferShare state={state} address={address} SetAlert={SetAlert}/>
+      <RedeemShare state={state} address={address} SetAlert={SetAlert}/>
     </div>
   );
 };
