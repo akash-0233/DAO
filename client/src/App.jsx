@@ -40,62 +40,8 @@ function App() {
 
   const connectMetamask = async () => {
     const web3 = new Web3(window.ethereum);
-    const add = "0x8008a5BD023282A067C7A892dB6A41febc9c08be";
-    const abi = [
-      {
-        "inputs": [
-          {
-            "internalType": "string",
-            "name": "_purpose",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_amount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "_recipient",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_Endin",
-            "type": "uint256"
-          }
-        ],
-        "name": "createProposal",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "Donate",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_id",
-            "type": "uint256"
-          }
-        ],
-        "name": "executeProposal",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
+    const add = "0x1411C9973a2922021010C1F560B56034e8B3bf9d";//"0x8008a5BD023282A067C7A892dB6A41febc9c08be";
+    const abi =   [
       {
         "inputs": [],
         "stateMutability": "nonpayable",
@@ -183,19 +129,6 @@ function App() {
         "type": "event"
       },
       {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_ShareCount",
-            "type": "uint256"
-          }
-        ],
-        "name": "RedeemShare",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
         "anonymous": false,
         "inputs": [
           {
@@ -212,6 +145,19 @@ function App() {
           }
         ],
         "name": "RedeemShares",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "reason",
+            "type": "string"
+          }
+        ],
+        "name": "RequirementError",
         "type": "event"
       },
       {
@@ -240,43 +186,6 @@ function App() {
         "type": "event"
       },
       {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "TransferTo",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ShareCount",
-            "type": "uint256"
-          }
-        ],
-        "name": "TransferShare",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "_id",
-            "type": "uint256"
-          }
-        ],
-        "name": "Vote",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
         "anonymous": false,
         "inputs": [
           {
@@ -302,8 +211,222 @@ function App() {
         "type": "event"
       },
       {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "InvestorList",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "RemainingFund",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "TotalShares",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "name": "isInvestor",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "isVoted",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "manager",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "proposals",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "purpose",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "votes",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "end",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isExecuted",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "quorum",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "voteTime",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
         "stateMutability": "payable",
-        "type": "receive"
+        "type": "receive",
+        "payable": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "_purpose",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "_recipient",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_Endin",
+            "type": "uint256"
+          }
+        ],
+        "name": "createProposal",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -353,36 +476,18 @@ function App() {
           }
         ],
         "stateMutability": "view",
-        "type": "function"
+        "type": "function",
+        "constant": true
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "",
+            "name": "_id",
             "type": "uint256"
           }
         ],
-        "name": "InvestorList",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "isInvestor",
+        "name": "executeProposal",
         "outputs": [
           {
             "internalType": "bool",
@@ -390,23 +495,26 @@ function App() {
             "type": "bool"
           }
         ],
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "Donate",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function",
+        "payable": true
       },
       {
         "inputs": [
           {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          },
-          {
             "internalType": "uint256",
-            "name": "",
+            "name": "_id",
             "type": "uint256"
           }
         ],
-        "name": "isVoted",
+        "name": "Vote",
         "outputs": [
           {
             "internalType": "bool",
@@ -414,124 +522,533 @@ function App() {
             "type": "bool"
           }
         ],
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
-        "inputs": [],
-        "name": "manager",
-        "outputs": [
+        "inputs": [
           {
             "internalType": "address",
-            "name": "",
+            "name": "TransferTo",
             "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ShareCount",
+            "type": "uint256"
           }
         ],
-        "stateMutability": "view",
+        "name": "TransferShare",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "",
+            "name": "_ShareCount",
             "type": "uint256"
           }
         ],
-        "name": "proposals",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "purpose",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "recipient",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "id",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "votes",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "end",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "isExecuted",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "quorum",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "RemainingFund",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "TotalShares",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "voteTime",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
+        "name": "RedeemShare",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       }
     ];
+    // const abi = 
+    // [
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "string",
+    //         "name": "_purpose",
+    //         "type": "string"
+    //       },
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "_amount",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "internalType": "address",
+    //         "name": "_recipient",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "_Endin",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "createProposal",
+    //     "outputs": [],
+    //     "stateMutability": "nonpayable",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [],
+    //     "name": "Donate",
+    //     "outputs": [],
+    //     "stateMutability": "payable",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "_id",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "executeProposal",
+    //     "outputs": [
+    //       {
+    //         "internalType": "bool",
+    //         "name": "",
+    //         "type": "bool"
+    //       }
+    //     ],
+    //     "stateMutability": "nonpayable",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [],
+    //     "stateMutability": "nonpayable",
+    //     "type": "constructor"
+    //   },
+    //   {
+    //     "anonymous": false,
+    //     "inputs": [
+    //       {
+    //         "indexed": true,
+    //         "internalType": "address",
+    //         "name": "donor",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "uint256",
+    //         "name": "amount",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "DonationReceived",
+    //     "type": "event"
+    //   },
+    //   {
+    //     "anonymous": false,
+    //     "inputs": [
+    //       {
+    //         "indexed": true,
+    //         "internalType": "uint256",
+    //         "name": "id",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "string",
+    //         "name": "purpose",
+    //         "type": "string"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "uint256",
+    //         "name": "amount",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "address",
+    //         "name": "recipient",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "uint256",
+    //         "name": "end",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "ProposalCreated",
+    //     "type": "event"
+    //   },
+    //   {
+    //     "anonymous": false,
+    //     "inputs": [
+    //       {
+    //         "indexed": true,
+    //         "internalType": "uint256",
+    //         "name": "proposalId",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "uint256",
+    //         "name": "amount",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "address",
+    //         "name": "recipient",
+    //         "type": "address"
+    //       }
+    //     ],
+    //     "name": "ProposalExecuted",
+    //     "type": "event"
+    //   },
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "_ShareCount",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "RedeemShare",
+    //     "outputs": [],
+    //     "stateMutability": "nonpayable",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "anonymous": false,
+    //     "inputs": [
+    //       {
+    //         "indexed": true,
+    //         "internalType": "address",
+    //         "name": "investor",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "uint256",
+    //         "name": "amount",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "RedeemShares",
+    //     "type": "event"
+    //   },
+    //   {
+    //     "anonymous": false,
+    //     "inputs": [
+    //       {
+    //         "indexed": true,
+    //         "internalType": "address",
+    //         "name": "from",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "indexed": true,
+    //         "internalType": "address",
+    //         "name": "to",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "uint256",
+    //         "name": "shares",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "SharesTransferred",
+    //     "type": "event"
+    //   },
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "address",
+    //         "name": "TransferTo",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "ShareCount",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "TransferShare",
+    //     "outputs": [],
+    //     "stateMutability": "nonpayable",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "_id",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "Vote",
+    //     "outputs": [
+    //       {
+    //         "internalType": "bool",
+    //         "name": "",
+    //         "type": "bool"
+    //       }
+    //     ],
+    //     "stateMutability": "nonpayable",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "anonymous": false,
+    //     "inputs": [
+    //       {
+    //         "indexed": true,
+    //         "internalType": "uint256",
+    //         "name": "proposalId",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "indexed": true,
+    //         "internalType": "address",
+    //         "name": "voter",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "indexed": false,
+    //         "internalType": "uint256",
+    //         "name": "votes",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "VoteCasted",
+    //     "type": "event"
+    //   },
+    //   {
+    //     "stateMutability": "payable",
+    //     "type": "receive"
+    //   },
+    //   {
+    //     "inputs": [],
+    //     "name": "GetProposalList",
+    //     "outputs": [
+    //       {
+    //         "components": [
+    //           {
+    //             "internalType": "string",
+    //             "name": "purpose",
+    //             "type": "string"
+    //           },
+    //           {
+    //             "internalType": "uint256",
+    //             "name": "amount",
+    //             "type": "uint256"
+    //           },
+    //           {
+    //             "internalType": "address",
+    //             "name": "recipient",
+    //             "type": "address"
+    //           },
+    //           {
+    //             "internalType": "uint256",
+    //             "name": "id",
+    //             "type": "uint256"
+    //           },
+    //           {
+    //             "internalType": "uint256",
+    //             "name": "votes",
+    //             "type": "uint256"
+    //           },
+    //           {
+    //             "internalType": "uint256",
+    //             "name": "end",
+    //             "type": "uint256"
+    //           },
+    //           {
+    //             "internalType": "bool",
+    //             "name": "isExecuted",
+    //             "type": "bool"
+    //           }
+    //         ],
+    //         "internalType": "struct DAO.Proposal[]",
+    //         "name": "",
+    //         "type": "tuple[]"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "InvestorList",
+    //     "outputs": [
+    //       {
+    //         "internalType": "address",
+    //         "name": "",
+    //         "type": "address"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "address",
+    //         "name": "",
+    //         "type": "address"
+    //       }
+    //     ],
+    //     "name": "isInvestor",
+    //     "outputs": [
+    //       {
+    //         "internalType": "bool",
+    //         "name": "",
+    //         "type": "bool"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "address",
+    //         "name": "",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "isVoted",
+    //     "outputs": [
+    //       {
+    //         "internalType": "bool",
+    //         "name": "",
+    //         "type": "bool"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [],
+    //     "name": "manager",
+    //     "outputs": [
+    //       {
+    //         "internalType": "address",
+    //         "name": "",
+    //         "type": "address"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "name": "proposals",
+    //     "outputs": [
+    //       {
+    //         "internalType": "string",
+    //         "name": "purpose",
+    //         "type": "string"
+    //       },
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "amount",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "internalType": "address",
+    //         "name": "recipient",
+    //         "type": "address"
+    //       },
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "id",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "votes",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "end",
+    //         "type": "uint256"
+    //       },
+    //       {
+    //         "internalType": "bool",
+    //         "name": "isExecuted",
+    //         "type": "bool"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [],
+    //     "name": "quorum",
+    //     "outputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [],
+    //     "name": "RemainingFund",
+    //     "outputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [],
+    //     "name": "TotalShares",
+    //     "outputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   },
+    //   {
+    //     "inputs": [],
+    //     "name": "voteTime",
+    //     "outputs": [
+    //       {
+    //         "internalType": "uint256",
+    //         "name": "",
+    //         "type": "uint256"
+    //       }
+    //     ],
+    //     "stateMutability": "view",
+    //     "type": "function"
+    //   }
+    // ];
     const contract = new web3.eth.Contract(
       abi, add
     );

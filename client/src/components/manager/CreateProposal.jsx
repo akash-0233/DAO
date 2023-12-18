@@ -8,6 +8,20 @@ function ProposalForm({ state, address,SetAlert }) {
   const [endIn, setEndIn] = useState('');
 
   const handleSubmit = async (event) => {
+
+
+  //   try{
+  //     event.preventDefault();//page will not reload if form get submitted
+  //     const {contract}=state;
+  //     const description = document.querySelector("#description").value;
+  //     const amount = document.querySelector("#amount").value;
+  //     const recipient = document.querySelector("#recipient").value;
+  //     await contract.methods.createProposal(description,amount,recipient).send({from:account,gas:480000});
+  // }catch(error){
+  //  alert(error)
+  // }
+
+
     event.preventDefault();
     try {
 
@@ -20,12 +34,12 @@ function ProposalForm({ state, address,SetAlert }) {
       SetAlert("success","Proposal Successfuly Created");
 
     } catch (error) {
-      console.log("Error is: " + error)
+      alert(error)
     }
     setAmount('');
     setRecipient('');
     setEndIn('');
-  }
+  } 
   // async function GetContract(){
   //   const get = document.queryselectory("#deta").value;
   // }

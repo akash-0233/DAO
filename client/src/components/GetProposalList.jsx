@@ -25,6 +25,7 @@ const GetProposalList = ({ state, address }) => {
             try {
 
                 const proposal = await state.contract.methods.GetProposalList().call();
+                console.log(proposal);
                 proposal.map((Prop) => {
 
                     const formattedProposal = {
