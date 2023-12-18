@@ -586,7 +586,7 @@ function App() {
       setTimeout(() => {
         setAlert({type:"", msg:""});
 
-      }, 2000);
+      }, 4000);
     }
 
   return (

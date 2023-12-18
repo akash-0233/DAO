@@ -1,31 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ExecuteProposal.css';
 
-function App() {
-  const [inputValue, setInputValue] = useState('');
+function App({state,address,SetAlert}) {
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
+  const handleExecute =async () => {
+    const id  = document.querySelector("#Pid").value;
 
-  const handleExecute = () => {
-    // You can add your code to execute here when the button is clicked.
-    console.log('Button clicked with input:', inputValue);
+    try {
+       await state.contract.methods.executeProposal(id).send({from:address, gas:400000});
+    SetAlert("success",`successfully Executed proposal :- ${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+
+   
   };
 
   return (
     <div className="app-container " >
   <div className="input-container">
     <input
+      id='Pid'
       type="text"
       className="input-field" // Updated class name
       placeholder="Enter Proposal ID"
 
+
     />
-    <button className="execute-button" >
+    <button className="execute-button" onClick={handleExecute} >
       Execute Proposal
     </button>
-    <div className="status">{status}</div>
+    {/* <div className="status">{status}</div> */}
   </div>
 </div>
   

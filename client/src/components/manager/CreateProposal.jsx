@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './CreateProposal.module.css'; // Import your CSS module
-import ExcuteProposal from './ExecuteProposal.jsx'
 
 function ProposalForm({ state, address,SetAlert }) {
   const [purpose, setPurpose] = useState('');
@@ -83,7 +82,7 @@ function ProposalForm({ state, address,SetAlert }) {
        
       </form>
 
-    </div>         <ExcuteProposal></ExcuteProposal>
+    </div>       
 
 
   </>

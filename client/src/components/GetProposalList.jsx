@@ -72,7 +72,7 @@ const GetProposalList = ({ state, address }) => {
                 </thead>
                 <tbody>
                     {proposals
-                        .filter((proposal) => proposal.isExecuted !== true)
+                        // .filter((proposal) => proposal.isExecuted !== true)
                         .map((proposal) => (
                             <tr key={proposal.id}>
                                 <td>{proposal.id}</td>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
-export default function RedeemShare({state, address}) {
+export default function RedeemShare({state, address,SetAlert}) {
 
     const handleRedeemShare =  async() => {
         try{
@@ -11,7 +11,7 @@ export default function RedeemShare({state, address}) {
             return ;
         }
         const result = await state.contract.methods.RedeemShare(share).send({from:address, gas:48000});
-        alert("Redeemed");
+        SetAlert("success",`${document.querySelector("#Nshare").value} Shares redeem successfully`);
     }catch(error){
         console.log("Error is:  " + error);
     }

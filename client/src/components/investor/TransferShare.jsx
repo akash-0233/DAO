@@ -1,18 +1,21 @@
 import React, {useState} from 'react'
 
-export default function TransferShare({state, address}) {
+export default function TransferShare({state, address, SetAlert}) {
 
     const handleTransferShare = async () => {
       try{
          const id = document.querySelector("#share").value;
       const receiver = document.querySelector("#receiver").value;
       const result = await state.contract.methods.TransferShare(receiver,id).send({from:address, gas:200000});
-      alert("Transfer Succaseed");
+      SetAlert( "success","Share Transfered successfully");
       }catch(error){
-        console.log(error);
+        if (error.message.includes("reverted")) {
+          SetAlert("danger","Transaction reverted. Possible reason: Already voted.");
+        } else {
+          SetAlert("danger","Transaction failed. Please try again later.");
+        }
       }
-     
-
+      
       };
   return (
     <>
