@@ -47,9 +47,9 @@ contract DAO {
         address indexed to,
         uint256 shares
     ); // Emits the transfer of shares between investors.
-    event RedeemShares(address indexed investor, uint256 amount);  // Emits when an investor redeems shares and withdraws funds.
+    event RedeemShares(address indexed investor, uint256 amount); // Emits when an investor redeems shares and withdraws funds.
     event DonationReceived(address indexed donor, uint256 amount); // Emits when a donation is made to the contract.
-    event RequirementError(string reason);                         // Emits with custom error message when condition not met.
+    event RequirementError(string reason); // Emits with custom error message when condition not met.
 
     constructor() {
         quorum = 51;
@@ -58,7 +58,7 @@ contract DAO {
 
     modifier onlyManager() {
         // Modifier to restrict access to only the contract manager.
-        require(msg.sender == manager,"Only Manager can access this function");
+        require(msg.sender == manager, "Only Manager can access this function");
         _;
     }
 
@@ -92,7 +92,7 @@ contract DAO {
             _Endin + block.timestamp
         );
         id++;
-}
+    }
 
     // Function to retrieve a list of all proposals.
     function GetProposalList() public view returns (Proposal[] memory) {
