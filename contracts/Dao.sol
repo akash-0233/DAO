@@ -13,14 +13,14 @@ contract DAO {
         bool isExecuted; // Flag indicating whether the proposal has been executed.
     }
     uint256 public voteTime; // Time allocated for vating on proposals.
-    uint256 public quorum; // Percentage of votes required for a proposal to pass
+    uint256 public quorum = 51; // Percentage of votes required for a proposal to pass
     address public manager; // Address of the contract manager (creator).
     uint256 id; // Unique identifier for proposals.
     uint256 public TotalShares; // Total shares held by all investors.
     uint256 public RemainingFund; // Remaaining Et
     address[] public InvestorList; // List of addresses of all investors.
 
-    mapping(address => uint) SharesOf; // Mapping of shares held by each investor.
+    mapping(address => uint) public SharesOf; // Mapping of shares held by each investor.
     mapping(address => bool) public isInvestor; // Mapping of Addresses to investor status.
     mapping(address => mapping(uint256 => bool)) public isVoted; // Mapping of addresses and proposals voted on.
     mapping(uint256 => Proposal) public proposals; // Mapping of proposal IDs to proposal details.
@@ -52,7 +52,6 @@ contract DAO {
     event RequirementError(string reason); // Emits with custom error message when condition not met.
 
     constructor() {
-        quorum = 51;
         manager = msg.sender; // The contract creator is the initial manager.
     }
 
