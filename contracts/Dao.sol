@@ -151,7 +151,7 @@ contract DAO {
         require(proposals[_id].end >= block.timestamp, "Voting Time Ended");
         require(isVoted[msg.sender][_id] == false, "Already Voted");
         isVoted[msg.sender][_id] = true;
-        proposals[_id].votes = SharesOf[msg.sender];
+        proposals[_id].votes += SharesOf[msg.sender];
         emit VoteCasted(_id, msg.sender, SharesOf[msg.sender]);
         return true;
     }
