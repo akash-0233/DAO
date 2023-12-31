@@ -191,7 +191,7 @@ contract DAO {
         if (SharesOf[msg.sender] == 0) {
             isInvestor[msg.sender] = false;
             for (uint a; a < InvestorList.length; a++) {
-                if (InvestorList[a] == msg.sender) {
+                if (InvestorList[a] == msg.sender && InvestorList.length != 1) {
                     InvestorList[a] = InvestorList[InvestorList.length - 1];
                     return;
                 } else if (a == InvestorList.length - 1) {
