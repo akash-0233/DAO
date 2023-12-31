@@ -203,4 +203,9 @@ contract DAO {
         payable(msg.sender).transfer(_ShareCount);
         emit RedeemShares(msg.sender, _ShareCount);
     }
+
+    function getIList() view public returns(address[] memory) {
+        return InvestorList;
+        
+    }
 }
