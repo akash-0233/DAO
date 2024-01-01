@@ -113,8 +113,8 @@ contract DAO {
             "Majority does not support"
         );
         proposals[_id].isExecuted = true;
-        RemainingFund -= proposals[_id].amount;
         require(proposals[_id].amount <= RemainingFund, "Insufficient Balance");
+        RemainingFund -= proposals[_id].amount;
         payable(proposals[_id].recipient).transfer(proposals[_id].amount);
         emit ProposalExecuted(
             _id,
@@ -188,6 +188,7 @@ contract DAO {
     function RedeemShare(uint _ShareCount) public onlyInvestor {
         require(SharesOf[msg.sender] >= _ShareCount, "Insufficient Shares");
         SharesOf[msg.sender] -= _ShareCount;
+        TotalShares -= _ShareCount;
         if (SharesOf[msg.sender] == 0) {
             isInvestor[msg.sender] = false;
             for (uint a; a < InvestorList.length; a++) {
@@ -204,8 +205,7 @@ contract DAO {
         emit RedeemShares(msg.sender, _ShareCount);
     }
 
-    function getIList() view public returns(address[] memory) {
+    function getIList() public view returns (address[] memory) {
         return InvestorList;
-        
     }
 }
