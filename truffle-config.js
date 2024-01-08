@@ -41,10 +41,12 @@
  * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
  */
 
-// require('dotenv').config();
-// const { MNEMONIC, PROJECT_ID } = process.env;
-const MNEMONIC = "axis deal chat avoid whisper cube monitor wise soon express update level";
+//npm install @truffle/hdwallet-provider
 const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+//npm install dotenv
+require('dotenv').config();
+const { MNEMONIC, PROJECT_ID } = process.env;
 
 module.exports = {
   /**
@@ -82,13 +84,14 @@ module.exports = {
     //
     // Useful for deploying to a public network.
     // Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.
-    
     sepolia: {
-      provider: () => new HDWalletProvider(MNEMONIC, `https://eth-sepolia.g.alchemy.com/v2/oQuuaFlQ1T4PjnOAOFLSXxghyt06sR4o`),
-      network_id: 11155111,       // Goerli's id
-      confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
-      timeoutBlocks: 400,  // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+      provider: () => new HDWalletProvider(MNEMONIC, `https://sepolia.infura.io/v3/${PROJECT_ID}`),
+      network_id: 11155111, // Sepolia Testnet network ID
+      gas: 10500000, // Gas limit
+      gasPrice: 20000000000, // Gas price
+      confirmations: 2, // Number of confirmations
+      timeoutBlocks: 200, // Timeout blocks
+      skipDryRun: true // Skip dry run before migrations
     },
     // //
     // Useful for private networks
@@ -112,7 +115,7 @@ module.exports = {
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
       //    enabled: false,
-         runs: 400
+      runs: 400
       //  },
       //  evmVersion: "byzantium"
       // }
