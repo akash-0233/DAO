@@ -28,10 +28,10 @@ function App() {
     setIsHovered(false);
   };
   const truncateAddress = (_address) => {
-    if(_address === "Not Connected"){
-      return  "Not Connected";
-    }else{
-          return `${_address.substring(0, 6)}...${_address.slice(-5)}`;
+    if (_address === "Not Connected") {
+      return "Not Connected";
+    } else {
+      return `${_address.substring(0, 6)}...${_address.slice(-5)}`;
 
     }
   };
@@ -40,8 +40,8 @@ function App() {
 
   const connectMetamask = async () => {
     const web3 = new Web3(window.ethereum);
-    const add = "0x1411C9973a2922021010C1F560B56034e8B3bf9d";//"0x8008a5BD023282A067C7A892dB6A41febc9c08be";
-    const abi =   [
+    const add = "0xd7230cbc0C335d2fD72aeA7c341bd50318d92f91";//"0x8008a5BD023282A067C7A892dB6A41febc9c08be";
+    const abi = [
       {
         "inputs": [],
         "stateMutability": "nonpayable",
@@ -233,6 +233,26 @@ function App() {
       {
         "inputs": [],
         "name": "RemainingFund",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "name": "SharesOf",
         "outputs": [
           {
             "internalType": "uint256",
@@ -555,6 +575,20 @@ function App() {
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getIList",
+        "outputs": [
+          {
+            "internalType": "address[]",
+            "name": "",
+            "type": "address[]"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
       }
     ];
     // const abi = 
@@ -1057,10 +1091,16 @@ function App() {
       await window.ethereum.enable().then(async function (accounts) {
         setAddress(accounts[0]);
         setIsConnected("Connected🟢");
+        setTimeout(() => {
+                  SetAlert("success", `Connected with  ${truncateAddress(accounts[0])}`);
+
+        }, 500);
+
       });
 
     } else {
-      alert('MetaMask is not installed');
+      SetAlert("failed", "MetaMask is not installed");
+
     }
 
   };
@@ -1072,39 +1112,46 @@ function App() {
       } else {
         setAddress('');
         setIsConnected('Not Connected🔴');
+
       }
     };
 
     checkConnection();
-  }, []); 
+  }, []);
 
- 
+
   useEffect(() => {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length === 0) {
           setAddress("Not Connected");
           setIsConnected("Disconnected🔴"); // Reset the button text on account change (disconnect)
+          SetAlert("danger", "MetaMask Disconnected");
+
           setTimeout(() => {
             setIsConnected("Connect");
           }, 2000);
+        }
+        else {
+          setAddress(accounts[0]);
+
         }
       });
     }
   }, []);
 
-    const [alert,setAlert]=useState({
-      type:"",
-      msg:""
-    });
-    
-    function SetAlert(type,msg){
-      setAlert({type:type, msg:msg});
-      setTimeout(() => {
-        setAlert({type:"", msg:""});
+  const [alert, setAlert] = useState({
+    type: "",
+    msg: ""
+  });
 
-      }, 4000);
-    }
+  function SetAlert(type, msg) {
+    setAlert({ type: type, msg: msg });
+    setTimeout(() => {
+      setAlert({ type: "", msg: "" });
+
+    }, 4000);
+  }
 
   return (
     <Router>
@@ -1123,8 +1170,8 @@ function App() {
                 <Link className="nav-link" to="/investor">Investor</Link>
               </li>
               <li className="nav-item">
-            <Link className="nav-link" to="/proposal">Proposal</Link>
-          </li>
+                <Link className="nav-link" to="/proposal">Proposal</Link>
+              </li>
             </ul>
             <div className="button-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 
@@ -1138,14 +1185,14 @@ function App() {
       </nav>
       <Alert alert={alert} ></Alert>
       <Routes>
-        <Route path="/" element={<HomePage />} index /> 
+        <Route path="/" element={<HomePage />} index />
         <Route path="/manager" element={<><Manager state={state} address={address} SetAlert={SetAlert} /> </>} />
-        <Route path="/investor" element={<Investor state={state} address={address} SetAlert={SetAlert}/>} />
+        <Route path="/investor" element={<Investor state={state} address={address} SetAlert={SetAlert} />} />
         <Route path="/proposal" element={<GetProposalList state={state} address={address} />} />
 
       </Routes>
     </Router>
-    
+
 
   );
 }
