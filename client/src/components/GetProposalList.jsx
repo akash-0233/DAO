@@ -82,7 +82,7 @@ const GetProposalList = ({ state, address }) => {
                                 <td className="ellipsis">{proposal.recipient}</td>
                                 <td>{proposal.votes}</td>
                                 <td>{proposal.end}</td>
-                                <td>{proposal.isExecuted ? 'Yes' : 'No'}</td>
+                                <td>{proposal.isExecuted ? 'Executed ✅' : 'Pending ⌛'}</td>
                             </tr>
                         ))}
 
