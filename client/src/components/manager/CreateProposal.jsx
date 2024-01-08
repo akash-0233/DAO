@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './CreateProposal.module.css'; // Import your CSS module
+import styles from './CreateProposal.module.css'; 
 
 function ProposalForm({ state, address,SetAlert }) {
   const [purpose, setPurpose] = useState('');
@@ -9,32 +9,17 @@ function ProposalForm({ state, address,SetAlert }) {
 
   const handleSubmit = async (event) => {
 
-
-  //   try{
-  //     event.preventDefault();//page will not reload if form get submitted
-  //     const {contract}=state;
-  //     const description = document.querySelector("#description").value;
-  //     const amount = document.querySelector("#amount").value;
-  //     const recipient = document.querySelector("#recipient").value;
-  //     await contract.methods.createProposal(description,amount,recipient).send({from:account,gas:480000});
-  // }catch(error){
-  //  alert(error)
-  // }
-
-
     event.preventDefault();
     try {
 
       const Min = endIn * 60;
       const sec = Min * 60;
-      // console.log(purpose, amount, recipient, sec, address);
 
       const result2 = await state.contract.methods.createProposal(purpose, amount, recipient, sec).send({ from: address, gas: 200000 });
-      // await state.contract.methods.createProposal(purpose, value, addres, time).send({ from: address, gas: 200000 });
       SetAlert("success","Proposal Successfuly Created");
 
     } catch (error) {
-      alert(error)
+      alert("Possible error :- ", error);
     }
     setAmount('');
     setRecipient('');
